@@ -2,7 +2,7 @@ package com.ctech.bartucz.criminalintent;
 
 import android.support.v4.app.Fragment;
 
-public class MainActivity extends SingleFragmentActivity {
+public class CrimeActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
