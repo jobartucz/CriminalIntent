@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment crimeListFragment = fm.findFragmentById(R.id.fragment_container);
+        Fragment myFragment = fm.findFragmentById(R.id.fragment_container);
 
         // the first time through, the fragment will be null, so create it
-        if (crimeListFragment == null) {
-            crimeListFragment = new CrimeFragment();
+        if (myFragment == null) {
+            myFragment = new CrimeFragment();
             fm.beginTransaction()
-                    .add(R.id.fragment_container, crimeListFragment)
+                    .add(R.id.fragment_container, myFragment)
                     .commit();
         }
     }
