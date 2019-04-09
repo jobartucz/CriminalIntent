@@ -1,12 +1,12 @@
-import android.content.Context;
+package com.ctech.bartucz.criminalintent;
 
-import com.ctech.bartucz.criminalintent.Crime;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// the CrimeLab singleton class
+// the com.ctech.bartucz.criminalintent.CrimeLab singleton class
 public class CrimeLab {
 
     private static CrimeLab sCrimeLab;
