@@ -86,8 +86,8 @@ public class CrimeListFragment extends Fragment {
         @NonNull
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            LayoutInflater myLayoutInflator = LayoutInflater.from(getActivity());
-            return new CrimeHolder(myLayoutInflator, viewGroup);
+            LayoutInflater myLayoutInflater = LayoutInflater.from(getActivity());
+            return new CrimeHolder(myLayoutInflater, viewGroup);
         }
 
         @Override
