@@ -68,9 +68,11 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(),
+
+            // we used this to test the click
+            /* Toast.makeText(getActivity(),
                     mCrime.getTitle() + " clicked!",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show(); */
 
             // create a new intent that automatically stores the crimeId
             Intent myIntent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
