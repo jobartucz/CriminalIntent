@@ -1,5 +1,6 @@
 package com.ctech.bartucz.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -52,6 +53,7 @@ public class CrimeListFragment extends Fragment {
         private ImageView mSolvedImageView;
 
         private Crime mCrime;
+        private static final String EXTRA_CRIME_ID = "com.ctech.bartucz.criminalintent.crime_id";
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
@@ -69,6 +71,10 @@ public class CrimeListFragment extends Fragment {
             Toast.makeText(getActivity(),
                     mCrime.getTitle() + " clicked!",
                     Toast.LENGTH_SHORT).show();
+
+            // create a new intent that automatically stores the crimeId
+            Intent myIntent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(myIntent);
         }
 
         public void bind(Crime crime) {
