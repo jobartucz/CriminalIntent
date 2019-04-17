@@ -88,7 +88,7 @@ public class CrimeListFragment extends Fragment {
                     Toast.LENGTH_SHORT).show(); */
 
             // create a new intent that automatically stores the crimeId
-            Intent myIntent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent myIntent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(myIntent);
         }
 
