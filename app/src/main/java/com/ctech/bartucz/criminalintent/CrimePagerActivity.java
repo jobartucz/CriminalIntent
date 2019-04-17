@@ -56,5 +56,14 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         });
 
+        // we got the crimeId from the intent,
+        // so figure out what number in the list matches that crimeId and set it to be shown
+        for (int i = 0; i < mCrimes.size(); i++) {
+            if (mCrimes.get(i).getId().equals(crimeId)) {
+                mViewPager.setCurrentItem(i);
+                break;
+            }
+        }
+
     }
 }
