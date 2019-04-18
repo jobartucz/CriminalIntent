@@ -85,7 +85,7 @@ public class CrimeFragment extends Fragment {
         });
 
         mDateButton = v.findViewById(R.id.crime_date);
-        mDateButton.setText(mCrime.getDate().toString());
+        updateDate();
 
         // add an anonymous listener that popups up a dialog when the date button is clicked
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -119,8 +119,12 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
-            mDateButton.setText(mCrime.getDate().toString());
+            updateDate();
         }
+    }
+
+    private void updateDate() {
+        mDateButton.setText(mCrime.getDate().toString());
     }
 }
 
