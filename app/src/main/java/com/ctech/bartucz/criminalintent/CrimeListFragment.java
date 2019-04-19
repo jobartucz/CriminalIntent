@@ -101,7 +101,7 @@ public class CrimeListFragment extends Fragment {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
         // pass in the crimeCount and format it properly with plurals
-        String subtitle = getResources().getQuantityString(R.plurals.subtitle_plural, crimeCount, crimeCount)
+        String subtitle = getResources().getQuantityString(R.plurals.subtitle_plural, crimeCount, crimeCount);
 
         // if it shouldn't be visible, just set it to null
         if (!mSubtitleVisible) {
