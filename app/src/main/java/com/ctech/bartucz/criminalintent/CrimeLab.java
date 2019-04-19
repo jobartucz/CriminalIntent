@@ -1,6 +1,9 @@
 package com.ctech.bartucz.criminalintent;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.ctech.bartucz.criminalintent.database.CrimeBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,9 @@ public class CrimeLab {
     private static CrimeLab sCrimeLab;
 
     private List<Crime> mCrimes;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
+
 
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
@@ -23,13 +29,10 @@ public class CrimeLab {
     private CrimeLab(Context context) {
         mCrimes = new ArrayList<>();
 
-        /* no longer need to generate fake crimes
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // every other one
-            mCrimes.add(crime);
-        } */
+        // the Context is where the database is stored while the app is running
+        mContext = context.getApplicationContext();
+        mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
+
     }
 
     public void addCrime(Crime c) {
