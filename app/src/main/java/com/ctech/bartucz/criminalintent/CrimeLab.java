@@ -2,6 +2,7 @@ package com.ctech.bartucz.criminalintent;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ctech.bartucz.criminalintent.database.CrimeBaseHelper;
@@ -75,6 +76,21 @@ public class CrimeLab {
         myContentValues.put(CrimeTable.Columns.SOLVED, crime.isSolved() ? 1 : 0);
 
         return myContentValues;
+    }
+
+    private Cursor queryCrimes(String whereClause, String[] whereArgs) {
+
+        Cursor cursor = mDatabase.query(
+                CrimeTable.NAME,
+                null, // select ALL the columns
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null);
+
+        return cursor;
+
     }
 }
 
