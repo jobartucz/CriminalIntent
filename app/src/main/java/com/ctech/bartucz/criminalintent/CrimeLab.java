@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ctech.bartucz.criminalintent.database.CrimeBaseHelper;
+import com.ctech.bartucz.criminalintent.database.CrimeCursorWrapper;
 import com.ctech.bartucz.criminalintent.database.CrimeDbSchema;
 import com.ctech.bartucz.criminalintent.database.CrimeDbSchema.CrimeTable;
 
@@ -60,11 +61,44 @@ public class CrimeLab {
     public List<Crime> getCrimes() {
 
         List<Crime> crimes = new ArrayList<>();
+
+        // in this case we want ALL The crimes, so we don't specify a "where" clause to search for
+        CrimeCursorWrapper crimeCursor = queryCrimes(null, null);
+
+        try {
+            crimeCursor.moveToFirst(); // make sure we're at the first item in the list
+            while (crimeCursor.isAfterLast() != true) {
+                Crime thisCrime = crimeCursor.getCrime();   // use the wrapper to get a crime object
+                crimes.add(thisCrime);                      // add it to the list
+                crimeCursor.moveToNext();
+            }
+        } finally {
+            crimeCursor.close(); // we have to close our connection to the database every time
+        }
+
         return crimes;
     }
 
     public Crime getCrime(UUID id) {
-        return null;
+
+        // create a string out of the UUID that we can search for
+        String[] searchArgs = new String[] {id.toString()};
+
+        // find the Crime where the UUID = our search string
+        CrimeCursorWrapper crimeCursor = queryCrimes(
+                CrimeTable.Columns.UUID + " = ?", searchArgs);
+
+        try {
+            if (crimeCursor.getCount() == 0) {
+                return null; // no Crimes in the database!
+            } else {
+                // there should only ever be 1 result with that id, so we can return the first result
+                crimeCursor.moveToFirst();
+                return crimeCursor.getCrime();
+            }
+        } finally {
+            crimeCursor.close();
+        }
     }
 
     // convert a Crime object into a ContentValues object which we can store in the database
@@ -78,7 +112,7 @@ public class CrimeLab {
         return myContentValues;
     }
 
-    private Cursor queryCrimes(String whereClause, String[] whereArgs) {
+    private CrimeCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
 
         Cursor cursor = mDatabase.query(
                 CrimeTable.NAME,
@@ -89,7 +123,7 @@ public class CrimeLab {
                 null,
                 null);
 
-        return cursor;
+        return new CrimeCursorWrapper(cursor);
 
     }
 }
