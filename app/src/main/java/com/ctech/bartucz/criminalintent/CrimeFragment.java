@@ -117,6 +117,7 @@ public class CrimeFragment extends Fragment {
         return v;
     }
 
+    // this gets called automatically when the date popup is closed
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
