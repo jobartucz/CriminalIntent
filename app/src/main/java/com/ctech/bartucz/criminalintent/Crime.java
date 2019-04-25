@@ -9,6 +9,7 @@ public class Crime {
     private String mTitle;  // title of the crime
     private Date mDate;     // date of the crime
     private boolean mSolved; // has the crime been solved?
+    private String mSuspect; // who did it?
 
     // The user can now specify their own UUID
     public Crime(UUID id) {
@@ -48,4 +49,14 @@ public class Crime {
     public void setSolved(boolean solved) {
         mSolved = solved;
     }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
+    }
+
+
 }

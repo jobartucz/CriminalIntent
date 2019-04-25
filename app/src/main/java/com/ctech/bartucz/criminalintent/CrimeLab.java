@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ctech.bartucz.criminalintent.database.CrimeBaseHelper;
 import com.ctech.bartucz.criminalintent.database.CrimeCursorWrapper;
-import com.ctech.bartucz.criminalintent.database.CrimeDbSchema;
 import com.ctech.bartucz.criminalintent.database.CrimeDbSchema.CrimeTable;
 
 import java.util.ArrayList;
@@ -104,10 +103,11 @@ public class CrimeLab {
     // convert a Crime object into a ContentValues object which we can store in the database
     private static ContentValues getContentValues(Crime crime) {
         ContentValues myContentValues = new ContentValues();
-        myContentValues.put(CrimeTable.Columns.UUID, crime.getId().toString());
-        myContentValues.put(CrimeTable.Columns.TITLE, crime.getTitle());
-        myContentValues.put(CrimeTable.Columns.DATE, crime.getDate().getTime());
-        myContentValues.put(CrimeTable.Columns.SOLVED, crime.isSolved() ? 1 : 0);
+        myContentValues.put(CrimeTable.Columns.UUID, crime.getId().toString()); // UUID -> string
+        myContentValues.put(CrimeTable.Columns.TITLE, crime.getTitle());  // already a string
+        myContentValues.put(CrimeTable.Columns.DATE, crime.getDate().getTime()); // store as an int
+        myContentValues.put(CrimeTable.Columns.SOLVED, crime.isSolved() ? 1 : 0); // boolean -> 0/1
+        myContentValues.put(CrimeTable.Columns.SUSPECT, crime.getSuspect()); // already a string
 
         return myContentValues;
     }
