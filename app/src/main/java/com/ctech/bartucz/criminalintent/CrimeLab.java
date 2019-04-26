@@ -9,6 +9,7 @@ import com.ctech.bartucz.criminalintent.database.CrimeBaseHelper;
 import com.ctech.bartucz.criminalintent.database.CrimeCursorWrapper;
 import com.ctech.bartucz.criminalintent.database.CrimeDbSchema.CrimeTable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -55,6 +56,12 @@ public class CrimeLab {
 
         mDatabase.update(CrimeTable.NAME, newValues, searchString, searchArgs);
 
+    }
+
+    // get a link to the file location
+    public File getPhotoFile(Crime crime) {
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, crime.getPhotoFilename());
     }
 
     public List<Crime> getCrimes() {
