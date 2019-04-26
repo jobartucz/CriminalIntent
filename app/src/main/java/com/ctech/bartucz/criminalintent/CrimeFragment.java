@@ -21,6 +21,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.provider.ContactsContract;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.Date;
 import java.util.UUID;
@@ -46,6 +48,8 @@ public class CrimeFragment extends Fragment {
     private CheckBox mSolvedCheckBox;
     private Button mReportButton;
     private Button mSuspectButton;
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
     public static CrimeFragment newInstance(UUID crimeId) {
 
@@ -156,10 +160,13 @@ public class CrimeFragment extends Fragment {
             mSuspectButton.setEnabled(false);
         }
 
+        mPhotoButton = v.findViewById(R.id.crime_camera);
+        mPhotoView = v.findViewById(R.id.crime_photo);
+
         return v;
     }
 
-    // this gets called automatically when the date popup is closed
+    // this gets called automatically when another activity returns to the Crime screen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
@@ -170,15 +177,15 @@ public class CrimeFragment extends Fragment {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             updateDate();
+
         } else if (requestCode == REQUEST_CONTACT && data != null) {
+
             Uri contactUri = data.getData();
-            // Specify which fields you want your query to return
-            // values for.
+            // Specify which fields you want your query to return values for.
             String[] queryFields = new String[]{
                     ContactsContract.Contacts.DISPLAY_NAME
             };
-            // Perform your query - the contactUri is like a "where"
-            // clause here
+            // Perform your query - the contactUri is like a "where" clause here
             Cursor c = getActivity().getContentResolver()
                     .query(contactUri, queryFields, null, null, null);
             try {
@@ -186,12 +193,12 @@ public class CrimeFragment extends Fragment {
                 if (c.getCount() == 0) {
                     return;
                 }
-                // Pull out the first column of the first row of data -
-                // that is your suspect's name.
+                // Pull out the first column of the first row of data - the suspect's name.
                 c.moveToFirst();
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
                 mSuspectButton.setText(suspect);
+
             } finally {
                 c.close();
             }
